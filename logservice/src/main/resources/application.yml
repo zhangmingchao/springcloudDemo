@@ -1,0 +1,16 @@
+server:
+  port: 9820
+spring:
+  application:
+    name: log-service
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:9800/eureka/
+  #表示将自己的ip注册到Eureka Server上，如果是false的话会显示hostname而不是ip地址
+  instance:
+    prefer-ip-address: true
+#feign 中 hystrix 的配置
+feign:
+  hystrix:
+    enabled: true
