@@ -13,6 +13,7 @@
         <module>userservice</module>
         <module>logservice</module>
         <module>zuul</module>
+        <module>logservice-backup</module>
     </modules>
 
     <parent>
