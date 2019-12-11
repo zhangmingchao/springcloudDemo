@@ -1,5 +1,7 @@
 package com.wlqk.module.controller;
 
+import com.wlqk.module.feign.ILogServiceFeignClient;
+import com.wlqk.module.model.TestParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -24,6 +26,7 @@ public class UserController {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+
     @GetMapping("/find")
     public String find(){
         return "userservice:"+"find";
@@ -37,22 +40,40 @@ public class UserController {
 
 
 
+//   rest 风格测试 ribbon
+//    @GetMapping("/test")
+//    public String test() {
+//        String result = restTemplate.getForObject("http://log-service/log/123",String.class);
+//        System.out.println(result);
+//        return result;
+//    }
+//
+//    @GetMapping("/test2")
+//    public String test2() {
+//        ServiceInstance serviceInstance = loadBalancerClient.choose("log-service");
+//        String result = serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+//        System.out.println(result);
+//        return result;
+//    }
+
+
+    @Autowired
+    private ILogServiceFeignClient logServiceFeignClient;
+
 
     @GetMapping("/test")
     public String test() {
-        String result = restTemplate.getForObject("http://log-service/log/123",String.class);
+        String result = logServiceFeignClient.test(234L);
         System.out.println(result);
         return result;
     }
 
     @GetMapping("/test2")
     public String test2() {
-        ServiceInstance serviceInstance = loadBalancerClient.choose("log-service");
-        String result = serviceInstance.getServiceId() + ":" + serviceInstance.getHost() + ":" + serviceInstance.getPort();
+        TestParam testParam = new TestParam(55, "zhangsan");
+        String result = logServiceFeignClient.post(testParam);
         System.out.println(result);
         return result;
     }
-
-
 
 }

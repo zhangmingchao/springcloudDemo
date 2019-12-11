@@ -1,12 +1,11 @@
 package com.wlqk.module.module.controller;
 
-//import com.wlqk.module.module.feign.LogFeignClient;
+//import com.wlqk.module.module.feign.IUserServiceFeignClient;
 
+import com.wlqk.module.module.feign.IUserServiceFeignClient;
+import com.wlqk.module.module.model.TestParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Description:
@@ -17,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/log")
 public class LogController {
 
-    //    @Autowired
-//    private LogFeignClient logFeignClient;
+
 //
 //    @GetMapping("/find")
 //    public String find(){
@@ -29,9 +27,26 @@ public class LogController {
 //    public String findById(@PathVariable("id") String id){
 //        return logFeignClient.findById(id);
 //    }
+
+      //Rest 风格调用
+//    @GetMapping("/{id}")
+//    public String getMessage(@PathVariable Long id) {
+//        return "the request1 id is " + id;
+//    }
+
+    @Autowired
+    private IUserServiceFeignClient logFeignClient;
+
     @GetMapping("/{id}")
     public String getMessage(@PathVariable Long id) {
+        System.out.println("logservice-backup");
         return "the request1 id is " + id;
+    }
+
+    @PostMapping("/post")
+    public String post(@RequestBody TestParam testParam) {
+        System.out.println("logservice-backup");
+        return "testParam 1" + testParam.toString();
     }
 
 }
