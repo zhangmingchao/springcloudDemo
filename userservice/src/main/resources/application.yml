@@ -3,6 +3,10 @@ server:
 spring:
   application:
     name: user-service
+  servlet:
+    multipart:
+      max-file-size: 2000Mb
+      max-request-size: 2500Mb
 eureka:
   client:
     service-url:
@@ -10,6 +14,11 @@ eureka:
   #表示将自己的ip注册到Eureka Server上，如果是false的话会显示hostname而不是ip地址
   instance:
     prefer-ip-address: true
+hystrix.command.default.execution.isolation.thread.timeoutInMilliseconds: 60000
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
 ribbon-client:
   ribbon:
     NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+

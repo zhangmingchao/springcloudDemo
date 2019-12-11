@@ -1,0 +1,12 @@
+server:
+  port: 9080
+spring:
+  application:
+    name: springcloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/zhangmingchao/-springcloud-config-server
+          username: 1539835012@qq.com
+          password: 19960527chao
